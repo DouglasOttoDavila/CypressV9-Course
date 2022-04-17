@@ -9,15 +9,22 @@ describe("Test Contact Us From via Automation Test Store", () => {
         cy.get('a[href$="contact"]').click()
     })
 
-    it("Should be able to submit a successful submission via contact us form",() => {
+    it.only("Should be able to submit a successful submission via contact us form",() => {
         //cypress code
         cy.get('#ContactUsFrm_first_name').type('Douglas')
+        
         cy.get('#ContactUsFrm_email').type('douglas.davila@oe.com')
+        
+        cy.get('#ContactUsFrm_email').should('have.attr', 'name', 'email')
+
         cy.get('#ContactUsFrm_enquiry').type('Testing Contact Us Form Submission')
+        
         /* cy.xpath('//button[contains(@title, "Submit")]').click() */
         //xpath works, however, it's better to keep built in selectors
         cy.get('button[title="Submit"').click()
+        
         cy.get('.contentpanel').should('contain.text', 'Your enquiry has been successfully sent to the store owner!')
+        
     });
 
     it("Should NOT be able to submit a successful submission via contact us form",() => {
